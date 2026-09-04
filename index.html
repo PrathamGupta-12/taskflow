@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<!-- Basic document information -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Browser tab title -->
+<title>TaskFlow - Project Manager</title>
+
+<!-- Main stylesheet -->
+<link rel="stylesheet" href="style.css">
+```
+
+</head>
+
+<body>
+
+```
+<!-- ========================================================= -->
+<!-- APPLICATION WRAPPER                                      -->
+<!-- Contains the complete TaskFlow application               -->
+<!-- ========================================================= -->
+
+<div class="app-container">
+
+
+    <!-- ===================================================== -->
+    <!-- SIDEBAR                                               -->
+    <!-- Main navigation section                               -->
+    <!-- ===================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- Application branding -->
+        <div class="brand">
+
+            <div class="brand-logo">
+                ✓
+            </div>
+
+            <div class="brand-info">
+
+                <h1>TaskFlow</h1>
+
+                <p>Project Manager</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Main navigation -->
+        <nav class="main-navigation">
+
+            <!-- Dashboard navigation item -->
+            <button
+                id="dashboardNav"
+                class="nav-item active"
+                type="button"
+            >
+
+                <span class="nav-icon">▦</span>
+
+                <span>Dashboard</span>
+
+            </button>
+
+
+            <!-- All tasks navigation item -->
+            <button
+                id="tasksNav"
+                class="nav-item"
+                type="button"
+            >
+
+                <span class="nav-icon">☑</span>
+
+                <span>All Tasks</span>
+
+            </button>
+
+
+            <!-- Projects navigation item -->
+            <button
+                id="projectsNav"
+                class="nav-item"
+                type="button"
+            >
+
+                <span class="nav-icon">▣</span>
+
+                <span>Projects</span>
+
+            </button>
+
+        </nav>
+
+
+        <!-- Sidebar bottom section -->
+        <div class="sidebar-bottom">
+
+            <!-- Theme toggle -->
+            <button
+                id="themeButton"
+                class="theme-button"
+                type="button"
+            >
+
+                <span id="themeIcon">☾</span>
+
+                <span id="themeText">Dark Mode</span>
+
+            </button>
+
+
+            <!-- User information -->
+            <div class="user-profile">
+
+                <div class="user-avatar">
+                    DC
+                </div>
+
+                <div class="user-details">
+
+                    <strong>My Workspace</strong>
+
+                    <span>Personal</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ===================================================== -->
+    <!-- MAIN CONTENT                                          -->
+    <!-- Everything except the sidebar                        -->
+    <!-- ===================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- ================================================= -->
+        <!-- TOP HEADER                                        -->
+        <!-- Page title and add-task button                    -->
+        <!-- ================================================= -->
+
+        <header class="top-header">
+
+            <div class="page-heading">
+
+                <p class="page-label">
+                    WORKSPACE
+                </p>
+
+                <h2 id="pageTitle">
+                    Dashboard
+                </h2>
+
+                <p id="pageSubtitle">
+                    Keep your projects organised and moving forward.
+                </p>
+
+            </div>
+
+
+            <!-- Opens the add-task modal -->
+            <button
+                id="addTaskButton"
+                class="primary-button"
+                type="button"
+            >
+
+                <span>+</span>
+
+                <span>Add Task</span>
+
+            </button>
+
+        </header>
+
+
+
+        <!-- ================================================= -->
+        <!-- DASHBOARD VIEW                                    -->
+        <!-- Main dashboard page                               -->
+        <!-- ================================================= -->
+
+        <section
+            id="dashboardView"
+            class="page-view active-view"
+        >
+
+
+            <!-- ============================================= -->
+            <!-- STATISTICS CARDS                              -->
+            <!-- Displays overall task statistics              -->
+            <!-- ============================================= -->
+
+            <div class="stats-grid">
+
+
+                <!-- Total tasks -->
+                <article class="stat-card">
+
+                    <div class="stat-card-header">
+
+                        <div class="stat-icon">
+                            ☑
+                        </div>
+
+                        <span class="stat-label">
+                            Total Tasks
+                        </span>
+
+                    </div>
+
+                    <h3 id="totalTasks">
+                        0
+                    </h3>
+
+                    <p>
+                        Tasks in your workspace
+                    </p>
+
+                </article>
+
+
+                <!-- Completed tasks -->
+                <article class="stat-card">
+
+                    <div class="stat-card-header">
+
+                        <div class="stat-icon">
+                            ✓
+                        </div>
+
+                        <span class="stat-label">
+                            Completed
+                        </span>
+
+                    </div>
+
+                    <h3 id="completedTasks">
+                        0
+                    </h3>
+
+                    <p id="completedTaskDescription">
+                        0% completion rate
+                    </p>
+
+                </article>
+
+
+                <!-- Pending tasks -->
+                <article class="stat-card">
+
+                    <div class="stat-card-header">
+
+                        <div class="stat-icon">
+                            ◷
+                        </div>
+
+                        <span class="stat-label">
+                            In Progress
+                        </span>
+
+                    </div>
+
+                    <h3 id="pendingTasks">
+                        0
+                    </h3>
+
+                    <p>
+                        Tasks currently active
+                    </p>
+
+                </article>
+
+
+                <!-- Overdue tasks -->
+                <article class="stat-card danger-stat">
+
+                    <div class="stat-card-header">
+
+                        <div class="stat-icon">
+                            !
+                        </div>
+
+                        <span class="stat-label">
+                            Overdue
+                        </span>
+
+                    </div>
+
+                    <h3 id="overdueTasks">
+                        0
+                    </h3>
+
+                    <p id="overdueDescription">
+                        Tasks need attention
+                    </p>
+
+                </article>
+
+            </div>
+
+
+
+            <!-- ============================================= -->
+            <!-- DASHBOARD GRID                                -->
+            <!-- Contains recent tasks + project progress      -->
+            <!-- ============================================= -->
+
+            <div class="dashboard-grid">
+
+
+                <!-- ========================================= -->
+                <!-- RECENT TASKS                              -->
+                <!-- Shows latest tasks                        -->
+                <!-- ========================================= -->
+
+                <section class="dashboard-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <p class="panel-label">
+                                ACTIVITY
+                            </p>
+
+                            <h2>
+                                Recent Tasks
+                            </h2>
+
+                        </div>
+
+                        <button
+                            id="viewAllTasks"
+                            class="text-button"
+                            type="button"
+                        >
+                            View All
+                        </button>
+
+                    </div>
+
+
+                    <!-- JavaScript will insert tasks here -->
+                    <div
+                        id="recentTasksContainer"
+                        class="recent-task-list"
+                    >
+                    </div>
+
+
+                    <!-- Displayed when no tasks exist -->
+                    <div
+                        id="emptyRecentTasks"
+                        class="empty-state"
+                    >
+
+                        <div class="empty-icon">
+                            ☑
+                        </div>
+
+                        <h3>No tasks yet</h3>
+
+                        <p>
+                            Add your first task to get started.
+                        </p>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ========================================= -->
+                <!-- PROJECT PROGRESS                          -->
+                <!-- Displays project completion              -->
+                <!-- ========================================= -->
+
+                <section class="dashboard-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <p class="panel-label">
+                                PROJECTS
+                            </p>
+
+                            <h2>
+                                Project Progress
+                            </h2>
+
+                        </div>
+
+                        <button
+                            id="viewAllProjects"
+                            class="text-button"
+                            type="button"
+                        >
+                            View All
+                        </button>
+
+                    </div>
+
+
+                    <!-- JavaScript inserts project cards here -->
+                    <div
+                        id="projectProgressContainer"
+                        class="project-progress-list"
+                    >
+                    </div>
+
+
+                    <!-- Displayed when no projects exist -->
+                    <div
+                        id="emptyProjects"
+                        class="empty-state"
+                    >
+
+                        <div class="empty-icon">
+                            ▣
+                        </div>
+
+                        <h3>No projects yet</h3>
+
+                        <p>
+                            Projects will appear here once tasks are added.
+                        </p>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+
+
+            <!-- ============================================= -->
+            <!-- PRIORITY OVERVIEW                             -->
+            <!-- Shows distribution of task priorities        -->
+            <!-- ============================================= -->
+
+            <section class="dashboard-panel priority-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <p class="panel-label">
+                            OVERVIEW
+                        </p>
+
+                        <h2>
+                            Priority Breakdown
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="priority-overview">
+
+
+                    <!-- High priority -->
+                    <div class="priority-item">
+
+                        <div class="priority-title">
+
+                            <span class="priority-dot high"></span>
+
+                            <span>
+                                High Priority
+                            </span>
+
+                        </div>
+
+                        <strong id="highPriorityCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Medium priority -->
+                    <div class="priority-item">
+
+                        <div class="priority-title">
+
+                            <span class="priority-dot medium"></span>
+
+                            <span>
+                                Medium Priority
+                            </span>
+
+                        </div>
+
+                        <strong id="mediumPriorityCount">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Low priority -->
+                    <div class="priority-item">
+
+                        <div class="priority-title">
+
+                            <span class="priority-dot low"></span>
+
+                            <span>
+                                Low Priority
+                            </span>
+
+                        </div>
+
+                        <strong id="lowPriorityCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- ALL TASKS VIEW                                    -->
+        <!-- Complete task management page                     -->
+        <!-- ================================================= -->
+
+        <section
+            id="tasksView"
+            class="page-view"
+        >
+
+
+            <!-- Page heading -->
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="page-label">
+                        WORKSPACE
+                    </p>
+
+                    <h2>
+                        All Tasks
+                    </h2>
+
+                    <p>
+                        Search, filter and manage your tasks.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ============================================= -->
+            <!-- TASK TOOLBAR                                  -->
+            <!-- Search, filters and sorting                   -->
+            <!-- ============================================= -->
+
+            <div class="task-toolbar">
+
+
+                <!-- Search input -->
+                <div class="search-wrapper">
+
+                    <span class="search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        id="taskSearch"
+                        type="text"
+                        placeholder="Search tasks..."
+                    >
+
+                </div>
+
+
+                <!-- Status filter -->
+                <select
+                    id="statusFilter"
+                    class="filter-select"
+                >
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="todo">
+                        To Do
+                    </option>
+
+                    <option value="progress">
+                        In Progress
+                    </option>
+
+                    <option value="completed">
+                        Completed
+                    </option>
+
+                </select>
+
+
+                <!-- Priority filter -->
+                <select
+                    id="priorityFilter"
+                    class="filter-select"
+                >
+
+                    <option value="all">
+                        All Priority
+                    </option>
+
+                    <option value="high">
+                        High
+                    </option>
+
+                    <option value="medium">
+                        Medium
+                    </option>
+
+                    <option value="low">
+                        Low
+                    </option>
+
+                </select>
+
+
+                <!-- Project filter -->
+                <select
+                    id="projectFilter"
+                    class="filter-select"
+                >
+
+                    <option value="all">
+                        All Projects
+                    </option>
+
+                </select>
+
+
+                <!-- Sorting -->
+                <select
+                    id="taskSort"
+                    class="filter-select"
+                >
+
+                    <option value="newest">
+                        Newest First
+                    </option>
+
+                    <option value="oldest">
+                        Oldest First
+                    </option>
+
+                    <option value="dueSoon">
+                        Due Date: Soonest
+                    </option>
+
+                    <option value="dueLate">
+                        Due Date: Latest
+                    </option>
+
+                    <option value="highest">
+                        Priority: High
+                    </option>
+
+                </select>
+
+
+                <!-- Reset all filters -->
+                <button
+                    id="resetTaskFilters"
+                    class="secondary-button"
+                    type="button"
+                >
+                    Reset
+                </button>
+
+            </div>
+
+
+
+            <!-- ============================================= -->
+            <!-- TASK COUNT                                    -->
+            <!-- ============================================= -->
+
+            <div class="result-information">
+
+                <span id="taskCount">
+                    0 Tasks
+                </span>
+
+            </div>
+
+
+
+            <!-- ============================================= -->
+            <!-- TASK TABLE                                    -->
+            <!-- JavaScript dynamically inserts rows            -->
+            <!-- ============================================= -->
+
+            <section class="task-table-wrapper">
+
+                <!-- Table header -->
+                <div class="task-table-header">
+
+                    <div>
+                        Task
+                    </div>
+
+                    <div>
+                        Project
+                    </div>
+
+                    <div>
+                        Priority
+                    </div>
+
+                    <div>
+                        Status
+                    </div>
+
+                    <div>
+                        Due Date
+                    </div>
+
+                    <div>
+                        Actions
+                    </div>
+
+                </div>
+
+
+                <!-- Dynamic task rows -->
+                <div
+                    id="tasksContainer"
+                    class="tasks-container"
+                >
+                </div>
+
+
+                <!-- Empty task state -->
+                <div
+                    id="taskEmptyState"
+                    class="empty-state table-empty-state"
+                >
+
+                    <div class="empty-icon">
+                        ☑
+                    </div>
+
+                    <h3>
+                        No tasks found
+                    </h3>
+
+                    <p>
+                        Try changing your filters or create a new task.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+
+        <!-- ================================================= -->
+        <!-- PROJECTS VIEW                                     -->
+        <!-- Displays project overview                         -->
+        <!-- ================================================= -->
+
+        <section
+            id="projectsView"
+            class="page-view"
+        >
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <p class="page-label">
+                        ORGANISATION
+                    </p>
+
+                    <h2>
+                        Projects
+                    </h2>
+
+                    <p>
+                        Track progress across your projects.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- JavaScript dynamically creates project cards -->
+            <div
+                id="projectsContainer"
+                class="projects-grid"
+            >
+            </div>
+
+
+            <!-- Empty projects state -->
+            <div
+                id="projectsEmptyState"
+                class="empty-state"
+            >
+
+                <div class="empty-icon">
+                    ▣
+                </div>
+
+                <h3>
+                    No projects available
+                </h3>
+
+                <p>
+                    Create tasks with different projects to see them here.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- ========================================================= -->
+<!-- ADD / EDIT TASK MODAL                                    -->
+<!-- Used for both creating and editing tasks                -->
+<!-- ========================================================= -->
+
+<div
+    id="taskModal"
+    class="modal-overlay"
+
+>
+
+    <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+        
+    >
+
+
+        <!-- Modal header -->
+        <div class="modal-header">
+
+            <div>
+
+                <p class="panel-label">
+                    TASK MANAGEMENT
+                </p>
+
+                <h2 id="modalTitle">
+                    Add Task
+                </h2>
+
+            </div>
+
+
+            <!-- Close modal -->
+            <button
+                id="closeModal"
+                class="modal-close"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+
+        <!-- ============================================= -->
+        <!-- TASK FORM                                     -->
+        <!-- ============================================= -->
+
+        <form id="taskForm">
+
+
+            <!-- Task title -->
+            <div class="form-group">
+
+                <label for="taskTitle">
+                    Task Title
+                </label>
+
+                <input
+                    id="taskTitle"
+                    type="text"
+                    placeholder="Enter task title"
+                >
+
+                <span
+                    id="taskTitleError"
+                    class="form-error"
+                ></span>
+
+            </div>
+
+
+
+            <!-- Task description -->
+            <div class="form-group">
+
+                <label for="taskDescription">
+                    Description
+                </label>
+
+                <textarea
+                    id="taskDescription"
+                    rows="4"
+                    placeholder="Describe what needs to be done..."
+                ></textarea>
+
+                <span
+                    id="taskDescriptionError"
+                    class="form-error"
+                ></span>
+
+            </div>
+
+
+
+            <!-- Form two-column layout -->
+            <div class="form-row">
+
+
+                <!-- Project -->
+                <div class="form-group">
+
+                    <label for="taskProject">
+                        Project
+                    </label>
+
+                    <select id="taskProject">
+
+                        <option value="">
+                            Select project
+                        </option>
+
+                        <option value="personal">
+                            Personal
+                        </option>
+
+                        <option value="college">
+                            College
+                        </option>
+
+                        <option value="web-development">
+                            Web Development
+                        </option>
+
+                        <option value="python">
+                            Python
+                        </option>
+
+                        <option value="dsa">
+                            DSA
+                        </option>
+
+                    </select>
+
+                    <span
+                        id="taskProjectError"
+                        class="form-error"
+                    ></span>
+
+                </div>
+
+
+
+                <!-- Priority -->
+                <div class="form-group">
+
+                    <label for="taskPriority">
+                        Priority
+                    </label>
+
+                    <select id="taskPriority">
+
+                        <option value="">
+                            Select priority
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                        <option value="medium">
+                            Medium
+                        </option>
+
+                        <option value="low">
+                            Low
+                        </option>
+
+                    </select>
+
+                    <span
+                        id="taskPriorityError"
+                        class="form-error"
+                    ></span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Second row -->
+            <div class="form-row">
+
+
+                <!-- Status -->
+                <div class="form-group">
+
+                    <label for="taskStatus">
+                        Status
+                    </label>
+
+                    <select id="taskStatus">
+
+                        <option value="todo">
+                            To Do
+                        </option>
+
+                        <option value="progress">
+                            In Progress
+                        </option>
+
+                        <option value="completed">
+                            Completed
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- Due date -->
+                <div class="form-group">
+
+                    <label for="taskDueDate">
+                        Due Date
+                    </label>
+
+                    <input
+                        id="taskDueDate"
+                        type="date"
+                    >
+
+                    <span
+                        id="taskDueDateError"
+                        class="form-error"
+                    ></span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Modal actions -->
+            <div class="modal-actions">
+
+                <button
+                    id="cancelTask"
+                    class="secondary-button"
+                    type="button"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    id="saveTask"
+                    class="primary-button"
+                    type="submit"
+                >
+                    Save Task
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+```
+
+</body>
+
+</html>
